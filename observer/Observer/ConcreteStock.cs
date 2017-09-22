@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Observer
 {
-    class ConcreteStock : Stock
+    class ConcreteStock : StockSubject
     {
         public string StockName { get; }
         public float StockValue { private set;  get; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Observer
 {
-    interface IPortfolio
+    interface IPortfolioObserver
     {
         void Update();
     }

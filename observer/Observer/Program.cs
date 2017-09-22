@@ -2,13 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Observer
 {
     class Program
     {
         static Dictionary<string, ConcreteStock> stockNamesDict;
+
+        private static System.Timers.Timer aTimer;
+
+        private static void UpdateStocksValues(object sender, EventArgs e)
+        {
+            foreach(var stock in stockNamesDict)
+            {
+                Random r = new Random();
+                //double nextPercentage = r.NextDouble();
+                int nextInt = r.Next(-5,5);
+                float percentage = (float)nextInt / 100;
+                float nextPercentage = 1 + percentage;
+
+                stock.Value.UpdateStockValue(stock.Value.StockValue * nextPercentage);
+            }
+        }
+
+
         public static void ParseLine(string input, out string stockName, out float stockValue)
         {
             string[] elems = input.Split();
@@ -40,6 +60,8 @@ namespace Observer
 
         static void Main(string[] args)
         {
+
+
             int startingAmount = 1;
 
             stockNamesDict= new Dictionary<string, ConcreteStock>();
@@ -66,8 +88,15 @@ namespace Observer
                 }
             } while (!stop);
 
-            
-     
+            aTimer = new System.Timers.Timer(10000);
+
+            // Hook up the Elapsed event for the timer.
+            aTimer.Elapsed += new ElapsedEventHandler(UpdateStocksValues);
+
+            // Set the Interval to 2 seconds (2000 milliseconds).
+            aTimer.Interval = 2000;
+            aTimer.Enabled = true;
+
             Console.ReadKey();
         }
     }

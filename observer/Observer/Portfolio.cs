@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Observer
 {
-    class Portfolio : IPortfolio
+    class Portfolio : IPortfolioObserver
     {
         private float totalStockValue;
         private Dictionary<ConcreteStock, float> stockDict;

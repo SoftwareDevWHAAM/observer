@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace Observer
 {
-    abstract class Stock
+    abstract class StockSubject
     {
-        private List<IPortfolio> portfolioList;
+        private List<IPortfolioObserver> portfolioList;
 
-        public Stock()
+        public StockSubject()
         {
-            portfolioList = new List<IPortfolio>();
+            portfolioList = new List<IPortfolioObserver>();
         }
 
-        public void Attach(IPortfolio ip)
+        public void Attach(IPortfolioObserver ip)
         {
             if (!(portfolioList.Contains(ip)))
             {
                 portfolioList.Add(ip);
             }
         }
-        public void Detach(IPortfolio ip)
+        public void Detach(IPortfolioObserver ip)
         {
             if (portfolioList.Contains(ip))
             {
